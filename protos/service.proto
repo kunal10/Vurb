@@ -1,0 +1,28 @@
+syntax = "proto3";
+import "data.proto";
+
+package exercise;
+
+message DeckRequest {
+    string deckId = 1;
+}
+
+message DeckResponse {
+    Deck deck = 1;
+}
+
+message UserDeckRequest {
+    string userId = 1;
+    bool paginated = 2;
+    int32 pageToken = 3; // Set only if paginated is true
+}
+
+message UserDeckResponse {
+   map<int32, Deck> decks = 1;
+}
+
+service DataRetrieval {
+    rpc GetDeck (DeckRequest) returns (DeckResponse) {};
+    rpc GetUserDeck (UserDeckRequest) returns (UserDeckResponse) {};
+    rpc GetDetailedUserDeck (UserDeckRequest) returns (UserDeckResponse) {};
+}
